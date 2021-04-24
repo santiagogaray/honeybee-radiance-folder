@@ -477,17 +477,17 @@ def write_cli_files(ht_cli_data, lib_name, tool_name, doc_folder):
             # avoid commands from other modules to be included). Also specify
             # commands as root commands.
             main_file = 'cli' if file == "cli" else 'cli.__init__'
+            cli_content = ["main\n",
+                           "====\n"]
             for group in ht_cli_data[file].keys():
-                cli_content = ["main\n",
-                               "====\n",
-                               "\n",
-                               ".. click:: {}.{}:{}\n".
-                               format(lib_name, main_file, group),
-                               "   :prog: {}\n".format(tool_name),
-                               "   :show-nested:\n",
-                               "   :commands: " + " ,".
-                               join(ht_cli_data[file][group]) + "\n"
-                               ]
+                cli_content += ["\n",
+                                ".. click:: {}.{}:{}\n".
+                                format(lib_name, main_file, group),
+                                "   :prog: {}\n".format(tool_name),
+                                "   :show-nested:\n",
+                                "   :commands: " + " ,".
+                                join(ht_cli_data[file][group]) + "\n"
+                                ]
             group_file = 'main'
 
         # Create CLI group reST file.
